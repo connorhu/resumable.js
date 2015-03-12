@@ -46,6 +46,7 @@
       method:'multipart',
       prioritizeFirstAndLastChunk:false,
       target:'/',
+      testTarget:false,
       testChunks:true,
       generateUniqueIdentifier:null,
       maxChunkRetries:undefined,
@@ -172,8 +173,8 @@
           return (size/1024.0/1024.0/1024.0).toFixed(1) + ' GB';
         }
       },
-      getTarget:function(params){
-        var target = $.getOpt('target');
+      getTarget:function(params, targetName){
+        var target = $.getOpt(targetName || 'target') || $.getOpt('target');
         if(target.indexOf('?') < 0) {
           target += '?';
         } else {
@@ -586,7 +587,7 @@
         params.push(['resumableRelativePath', encodeURIComponent($.fileObj.relativePath)].join('='));
         params.push(['resumableTotalChunks', encodeURIComponent($.fileObj.chunks.length)].join('='));
         // Append the relevant chunk and send it
-        $.xhr.open('GET', $h.getTarget(params));
+        $.xhr.open('GET', $h.getTarget(params, 'testTarget'));
         $.xhr.timeout = $.getOpt('xhrTimeout');
         $.xhr.withCredentials = $.getOpt('withCredentials');
         // Add data from header options
