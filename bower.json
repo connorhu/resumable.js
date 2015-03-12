@@ -1,7 +1,9 @@
 {
     "name": "resumable.js",
     "version": "1.0.1",
-    "main": "resumable.js",
+    "main": [
+        "resumable.js"
+    ],
     "ignore": [
         ".gitignore",
         "*.md"
